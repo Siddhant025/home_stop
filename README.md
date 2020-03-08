@@ -1,6 +1,5 @@
 # home_stop
 
-gandu sale
 
 ## Getting Started
 
