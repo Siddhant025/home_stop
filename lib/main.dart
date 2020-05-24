@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'input_page.dart';
+import 'package:home_stop/Screens/chatscreen.dart';
+import 'package:home_stop/Screens/log_in.dart';
+import 'package:home_stop/Screens/payment.dart';
+import 'package:home_stop/Screens/shopping_store.dart';
+import 'Screens/review.dart';
+import 'package:home_stop/Screens/shop_page.dart';
+import 'package:home_stop/Screens/sign_up.dart';
+import 'Screens/input_page.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -7,13 +15,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        textTheme: TextTheme(
-          body1: TextStyle(color: Colors.black54),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      home:InputPage(),
+      initialRoute: InputPage.id,
+      routes: {
+        InputPage.id:(context)=>InputPage(),
+        SignUp.id:(context)=>SignUp(),
+        LogIn.id:(context)=>LogIn(),
+        ShopPage.id:(context)=>ShopPage(),
+        ReviewPage.id:(context)=>ReviewPage(),
+        PaymentPage.id:(context)=>PaymentPage(),
+        Shopping.id:(context)=>Shopping(),
+        ChatScreen.id:(context)=>ChatScreen(),
+
+      },
     );
   }
 }
