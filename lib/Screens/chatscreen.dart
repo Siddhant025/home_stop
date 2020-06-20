@@ -16,6 +16,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _firestore = Firestore.instance;
   String TextMessage;
   final messageController=TextEditingController();
+
   void messageStream() async{
     await for(var snapshot in _firestore.collection("users").document(widget.loggedInUser.uid).collection("messages").snapshots()){
       for(var message in snapshot.documents){
@@ -23,6 +24,8 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     }
   }
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white70,
