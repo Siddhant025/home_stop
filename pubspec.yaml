@@ -72,8 +72,11 @@ flutter:
     - images/Tapes.jpg
     - images/Whitner.jpg
     - images/ClassmateNotebooks.jpg
+<<<<<<< HEAD
     - images/CoverPage.png
     - images/forward.png
+=======
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
   fonts:
     - family: RobotoCondensed
       fonts:
