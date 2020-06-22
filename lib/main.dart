@@ -8,7 +8,6 @@ import 'package:home_stop/Screens/shop_page.dart';
 import 'package:home_stop/Screens/sign_up.dart';
 import 'Screens/input_page.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
         PaymentPage.id:(context)=>PaymentPage(),
         Shopping.id:(context)=>Shopping(),
         ChatScreen.id:(context)=>ChatScreen(),
-
       },
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:home_stop/Screens/shop_page.dart';
-import 'package:home_stop/Screens/shopping_store.dart';
 import 'package:home_stop/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +8,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class ReviewPage extends StatefulWidget {
   @override
   static const String id = 'ReviewPage';
+  ReviewPage({this.name, this.thumbnail});
+  final String name;
+  final String thumbnail;
   _ReviewPageState createState() => _ReviewPageState();
 }
 
@@ -26,7 +28,7 @@ class _ReviewPageState extends State<ReviewPage> {
       myFeedbackColor4 = Colors.grey,
       myFeedbackColor5 = Colors.grey;
   String Review;
-  final RC=TextEditingController();
+  final RC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,12 +109,12 @@ class _ReviewPageState extends State<ReviewPage> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                               image: DecorationImage(
-                                  image: AssetImage('images/shop.jpg'),
+                                  image: NetworkImage(widget.thumbnail),
                                   fit: BoxFit.fill),
                             ),
                           ),
                           Text(
-                            'Shop Name',
+                            '${widget.name}',
                             style: GoogleFonts.montserrat(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -195,7 +197,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            Navigator.pushNamed(context, ShopPage.id);
+                            Navigator.pop(context);
                           });
                         },
                         child: Text(
@@ -260,7 +262,7 @@ class _ReviewPageState extends State<ReviewPage> {
                     textAlign: TextAlign.center,
                     controller: RC,
                     onChanged: (value) {
-                      Review=value;
+                      Review = value;
                     },
                     style: TextStyle(
                       color: Colors.black,

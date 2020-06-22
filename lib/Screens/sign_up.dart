@@ -7,6 +7,7 @@ import 'package:home_stop/Screens/shopping_store.dart';
 import 'dart:core';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -17,6 +18,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   String email;
+  double Latitude;
+  double Longitude;
   String pwd;
   int phoneno;
   String username;
@@ -27,6 +30,22 @@ class _SignUpState extends State<SignUp> {
   final usernamecontroller = TextEditingController();
   final pwdcontroller = TextEditingController();
   final phonenocontroller = TextEditingController();
+
+  void _getCurrentLocation() async {
+    final position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Latitude = position.latitude;
+    Longitude = position.longitude;
+    print(position);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCurrentLocation();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -288,7 +307,7 @@ class _SignUpState extends State<SignUp> {
                                         emailcontroller.clear();
                                         Navigator.pop(context);
                                       },
-                                    )
+                                    ),
                                   ],
                                 );
                               });
@@ -300,7 +319,17 @@ class _SignUpState extends State<SignUp> {
                             'phoneno': phoneno,
                             'username': username,
                           });
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Shopping(email: email,name: username,)));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Shopping(
+                                email: email,
+                                name: username,
+                                Latitude: Latitude,
+                                Longitude: Longitude,
+                              ),
+                            ),
+                          );
                         }
                       } catch (e) {
                         showDialog(
@@ -339,7 +368,7 @@ class _SignUpState extends State<SignUp> {
                           fontStyle: FontStyle.italic,
                           textBaseline: TextBaseline.alphabetic),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

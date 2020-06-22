@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -22,6 +23,8 @@ class _LogInState extends State<LogIn> {
   String username;
   String pwd;
   bool _spinner = false;
+  double Latitude;
+  double Longitude;
   final _auth = FirebaseAuth.instance;
   final googleSignIn = new GoogleSignIn();
 
@@ -37,6 +40,22 @@ class _LogInState extends State<LogIn> {
 
     print(" signed in " + user.displayName);
     return user;
+  }
+
+  void _getCurrentLocation() async {
+    final position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Latitude = position.latitude;
+    Longitude = position.longitude;
+    print(Latitude);
+    print(Longitude);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCurrentLocation();
   }
 
   void SignOut() {
@@ -97,8 +116,8 @@ class _LogInState extends State<LogIn> {
                     autofocus: true,
                     decoration: InputDecoration(
                         filled: true,
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         fillColor: Colors.white,
                         icon: Icon(
                           FontAwesomeIcons.user,
@@ -113,17 +132,19 @@ class _LogInState extends State<LogIn> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.blueAccent, width: 1),
+                              BorderSide(color: Colors.blueAccent, width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(30)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.blueAccent, width: 1),
+                            borderSide:
+                                BorderSide(color: Colors.blueAccent, width: 1),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(30)))),
+                                BorderRadius.all(Radius.circular(30)))),
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextFormField(
@@ -236,6 +257,8 @@ class _LogInState extends State<LogIn> {
                                 builder: (context) => Shopping(
                                   email: email,
                                   name: username,
+                                  Latitude: Latitude,
+                                  Longitude: Longitude,
                                 ),
                               ));
                           showDialog(
@@ -261,7 +284,7 @@ class _LogInState extends State<LogIn> {
                           context: context,
                           type: AlertType.error,
                           title: "ALERT",
-                          desc: "Incorrect Email or Password ",
+                          desc: "Incorrect Email or Password",
                           buttons: [
                             DialogButton(
                               child: Text(
@@ -316,6 +339,8 @@ class _LogInState extends State<LogIn> {
                                   builder: (context) => Shopping(
                                         email: user.email,
                                         name: user.displayName,
+                                        Latitude: Latitude,
+                                        Longitude: Longitude,
                                       )));
                           showDialog(
                               context: context,

@@ -16,43 +16,43 @@ class Coffee {
 
 final List<Coffee> coffeeShops = [
   Coffee(
-    shopName: 'Stumptown Coffee Roasters',
-    address: '18 W 29th St',
+    shopName: 'Mahalaxmi Provision',
+    address: 'Shital Apartment, RC Dutt Rd',
     thumbNail:
-        'https://i.pinimg.com/originals/49/20/78/492078c545f91879445193de25ceeed5.jpg',
-    lat: 22.292511,
-    long: 73.164375
+        'https://images.jdmagicbox.com/comp/vadodara/s4/0265px265.x265.120808120701.d3s4/catalogue/mahalaxmi-provision-store-gorwa-vadodara-grocery-stores-4cimk15.jpg',
+    lat: 22.309990,
+    long: 73.181610
   ),
   Coffee(
-    shopName: 'Andrews Coffee Shop',
-    address: '463 7th Ave',
-    thumbNail:
-        'https://media-cdn.tripadvisor.com/media/photo-s/10/2d/1e/eb/andrews-coffee-shop.jpg',
-    lat: 22.270041,
-    long: 73.149727
+      shopName: 'Parishram Electrics',
+      address: 'G-2,18,Yogi Ashish',
+      thumbNail:
+      'https://content.jdmagicbox.com/comp/vadodara/x2/0265px265.x265.001235197284.m4x2/catalogue/parishram-electrical-store-vadodara-sfvrz4glpo.jpg?clr=',
+      lat: 22.302160,
+      long: 73.175160
   ),
   Coffee(
-    shopName: 'Third Rail Coffee',
-    address: '240 Sullivan St',
+    shopName: 'Samsung Showroom',
+    address: 'Malhar Point,Haripura',
     thumbNail:
-        'https://s3-media0.fl.yelpcdn.com/bphoto/gqAmnRMyn18zqbEcuTb1PA/348s.jpg',
-    lat: 22.291061,
-    long: 73.243126
+        'https://content3.jdmagicbox.com/comp/vadodara/i8/0265px265.x265.120417171716.l5i8/catalogue/samsung-plaza-manjalpur-vadodara-electronic-goods-showrooms-3sfkvuc.jpg?clr=3f2727',
+    lat: 22.303270,
+    long: 73.165670
   ),
   Coffee(
-    shopName: 'Hi-Collar',
-    address: '214 E 10th St',
+    shopName: 'Apex Dry Fruit Stores',
+    address: 'G 6/7 Sakar Complex',
     thumbNail:
-        'https://www.screenly.io/assets/coffee-shop-digital-sign-c1a802afd67812d4f641854893f2ea8b94ade4c9df445cac471c4f8f27208e94.png',
-    lat: 22.323494,
-    long: 73.187221
+        'https://content3.jdmagicbox.com/comp/vadodara/q3/0265px265.x265.141201120642.v7q3/catalogue/apex-dry-fruit-store-old-padra-road-vadodara-dry-fruit-retailers-3fzprrj.jpg',
+    lat: 22.3006,
+    long: 73.1692
   ),
   Coffee(
-    shopName: 'Everyman Espresso',
+    shopName: 'Krishna Stationery',
     address: '301 W Broadway',
     thumbNail:
-        'https://images.squarespace-cdn.com/content/v1/5518a643e4b0ad84142c80a6/1428040616862-YHPSW6O68EM09DWCVCH0/ke17ZwdGBToddI8pDm48kC67Bb35Ud-XEefWBusFwAxZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpyPUxGsLqu9r5wyz_a8BO4zFTXzssYQE6iuI9f3zGsIp4jxGsyqshwGj2VLLj33yFI/New+13th+St%282%29.png?format=1500w',
+        'https://content.jdmagicbox.com/comp/vadodara/f3/0265px265.x265.140612110503.i3f3/catalogue/krishna-stationery-and-xerox-subhanpura-vadodara-photocopying-centres-323a63t-250.jpg',
     lat: 22.3073,
     long: 73.1811
-  )
+  ),
 ];

@@ -7,16 +7,19 @@ import 'package:home_stop/Screens/review.dart';
 import 'package:home_stop/constants.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+// ignore: must_be_immutable
 class ShopPage extends StatefulWidget {
   @override
-  ShopPage({Key key,this.thumbnail}) : super(key: key);
+  ShopPage({Key key, this.thumbnail, this.index, this.name}) : super(key: key);
   final String thumbnail;
+  final int index;
+  final String name;
   static const String id = 'ShopPage';
   _ShopPageState createState() => _ShopPageState();
 }
 
 class _ShopPageState extends State<ShopPage> {
-  item ITEM = item();
+  StoreList S = new StoreList();
   ScrollController _scrollBottomBarController =
       new ScrollController(); // set controller on scrolling
   bool isScrollingDown = false;
@@ -162,7 +165,7 @@ class _ShopPageState extends State<ShopPage> {
                             ),
                           ),
                           Text(
-                            'Shop Name',
+                            '${widget.name}',
                             style: GoogleFonts.montserrat(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -245,20 +248,13 @@ class _ShopPageState extends State<ShopPage> {
                         ),
                         onPressed: null,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            Navigator.pushNamed(context, ShopPage.id);
-                          });
-                        },
-                        child: Text(
-                          'Items',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.montserrat(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xffffffff),
-                          ),
+                      Text(
+                        'Items',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xffffffff),
                         ),
                       ),
                       SizedBox(
@@ -267,7 +263,14 @@ class _ShopPageState extends State<ShopPage> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            Navigator.pushNamed(context, ReviewPage.id);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ReviewPage(
+                                    name: widget.name,
+                                    thumbnail: widget.thumbnail,
+                                  ),
+                                ));
                           });
                         },
                         child: Text(
@@ -308,7 +311,7 @@ class _ShopPageState extends State<ShopPage> {
               controller: _scrollBottomBarController,
               shrinkWrap: true,
               physics: ScrollPhysics(),
-              itemCount: ITEM.item_card.length,
+              itemCount: S.Store_List[widget.index].length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   height: 100,
@@ -322,7 +325,7 @@ class _ShopPageState extends State<ShopPage> {
                           Container(
                             child: Image(
                               image: AssetImage(
-                                ITEM.item_card[index].imgpath,
+                                S.Store_List[widget.index][index].imgpath,
                               ),
                               alignment: Alignment.topLeft,
                             ),
@@ -339,7 +342,7 @@ class _ShopPageState extends State<ShopPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  ITEM.item_card[index].itemname,
+                                  S.Store_List[widget.index][index].itemname,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontFamily: 'RobotoCondensed',
@@ -349,7 +352,7 @@ class _ShopPageState extends State<ShopPage> {
                                   height: 15,
                                 ),
                                 Text(
-                                  ITEM.item_card[index].Description,
+                                  S.Store_List[widget.index][index].Description,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 12,
@@ -369,7 +372,7 @@ class _ShopPageState extends State<ShopPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '${ITEM.item_card[index].price.toString()}Rs',
+                                  '${S.Store_List[widget.index][index].price.toString()}Rs',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 12,
@@ -386,20 +389,29 @@ class _ShopPageState extends State<ShopPage> {
                                       onpress: () {
                                         setState(
                                           () {
-                                            if (ITEM.item_card[index]
+                                            if (S
+                                                    .Store_List[widget.index]
+                                                        [index]
                                                     .available >
                                                 0) {
                                               _no_of_items = _no_of_items + 1;
                                               _price = _price +
-                                                  ITEM.item_card[index].price;
-                                              ITEM.item_card[index].selected =
-                                                  ITEM.item_card[index]
-                                                          .selected +
-                                                      1;
-                                              ITEM.item_card[index].available =
-                                                  ITEM.item_card[index]
-                                                          .available -
-                                                      1;
+                                                  S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .price;
+                                              S.Store_List[widget.index][index]
+                                                  .selected = S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .selected +
+                                                  1;
+                                              S.Store_List[widget.index][index]
+                                                  .available = S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .available -
+                                                  1;
                                             }
                                           },
                                         );
@@ -407,7 +419,7 @@ class _ShopPageState extends State<ShopPage> {
                                     ),
                                     Card(
                                       child: Text(
-                                          '${ITEM.item_card[index].selected}'),
+                                          '${S.Store_List[widget.index][index].selected}'),
                                     ),
                                     RoundIconButton(
                                       w: Icon(
@@ -417,22 +429,34 @@ class _ShopPageState extends State<ShopPage> {
                                       onpress: () {
                                         setState(
                                           () {
-                                            if (ITEM.item_card[index]
+                                            if (S
+                                                        .Store_List[
+                                                            widget.index][index]
                                                         .available >=
                                                     0 &&
-                                                ITEM.item_card[index].selected >
+                                                S
+                                                        .Store_List[
+                                                            widget.index][index]
+                                                        .selected >
                                                     0) {
                                               _no_of_items--;
                                               _price = _price -
-                                                  ITEM.item_card[index].price;
-                                              ITEM.item_card[index].selected =
-                                                  ITEM.item_card[index]
-                                                          .selected -
-                                                      1;
-                                              ITEM.item_card[index].available =
-                                                  ITEM.item_card[index]
-                                                          .available +
-                                                      1;
+                                                  S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .price;
+                                              S.Store_List[widget.index][index]
+                                                  .selected = S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .selected -
+                                                  1;
+                                              S.Store_List[widget.index][index]
+                                                  .available = S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .available +
+                                                  1;
                                             }
                                           },
                                         );
@@ -502,7 +526,8 @@ class _ShopPageState extends State<ShopPage> {
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 10),
                               ),
-                              onPressed: () => Navigator.pushNamed(context, PaymentPage.id),
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, PaymentPage.id),
                               color: Color.fromRGBO(0, 179, 134, 1.0),
                             ),
                             DialogButton(
@@ -606,33 +631,3 @@ class RoundIconButton extends StatelessWidget {
     );
   }
 }
-/*
-bottomNavigationBar: Container(
-        height: bottomBarHeight,
-        width: MediaQuery.of(context).size.width,
-        child: _show
-            ? BottomNavigationBar(
-                backgroundColor: Color(0xFF111328),
-                currentIndex: _selectedIndex,
-                onTap: _onItemTapped,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.shopping_cart),
-                    title: new Text('Items Selected'),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: new Icon(Icons.done),
-                    title: new Text('ProceedtoCheckout'),
-                  ),
-                  BottomNavigationBarItem(
-                    icon: new Icon(Icons.attach_money),
-                    title: new Text('TotalCost'),
-                  ),
-                ],
-              )
-            : Container(
-                color: Colors.white,
-                width: MediaQuery.of(context).size.width,
-              ),
-      ),
- */
