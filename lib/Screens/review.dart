@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:home_stop/Screens/shop_page.dart';
-import 'package:home_stop/Screens/shopping_store.dart';
+import 'package:home_stop/Screens/description.dart';
 import 'package:home_stop/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ReviewPage extends StatefulWidget {
   @override
   static const String id = 'ReviewPage';
+  ReviewPage({this.name, this.thumbnail, this.Phoneno});
+  final String name;
+  final String thumbnail;
+  final int Phoneno;
   _ReviewPageState createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
   var myFeedbackText = "COULD BE BETTER";
+  Firestore _firestore = Firestore.instance;
   var sliderValue = 0.0;
   IconData myFeedback1 = FontAwesomeIcons.star,
       myFeedback2 = FontAwesomeIcons.star,
@@ -26,7 +31,43 @@ class _ReviewPageState extends State<ReviewPage> {
       myFeedbackColor4 = Colors.grey,
       myFeedbackColor5 = Colors.grey;
   String Review;
-  final RC=TextEditingController();
+
+  void addMP() {
+    _firestore.collection('reviewMP').add({
+      'review': Review,
+      'slider': sliderValue.round(),
+    });
+  }
+
+  void addKS() {
+    _firestore.collection('reviewKS').add({
+      'review': Review,
+      'slider': sliderValue.round(),
+    });
+  }
+
+  void addAD() {
+    _firestore.collection('reviewAD').add({
+      'review': Review,
+      'slider': sliderValue.round(),
+    });
+  }
+
+  void addPE() {
+    _firestore.collection('reviewPE').add({
+      'review': Review,
+      'slider': sliderValue.round(),
+    });
+  }
+
+  void addSS() {
+    _firestore.collection('reviewSS').add({
+      'review': Review,
+      'slider': sliderValue.round(),
+    });
+  }
+
+  final RC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,12 +148,12 @@ class _ReviewPageState extends State<ReviewPage> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                               image: DecorationImage(
-                                  image: AssetImage('images/shop.jpg'),
+                                  image: NetworkImage(widget.thumbnail),
                                   fit: BoxFit.fill),
                             ),
                           ),
                           Text(
-                            'Shop Name',
+                            '${widget.name}',
                             style: GoogleFonts.montserrat(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -195,7 +236,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            Navigator.pushNamed(context, ShopPage.id);
+                            Navigator.pop(context);
                           });
                         },
                         child: Text(
@@ -230,7 +271,18 @@ class _ReviewPageState extends State<ReviewPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {});
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Description(
+                                  name: widget.name,
+                                  thumbnail: widget.thumbnail,
+                                  Phoneno: widget.Phoneno,
+                                ),
+                              ),
+                            );
+                          });
                         },
                         child: Text(
                           'Description',
@@ -257,28 +309,29 @@ class _ReviewPageState extends State<ReviewPage> {
               shadowColor: Colors.black54,
               child: Card(
                 child: TextField(
-                    textAlign: TextAlign.center,
-                    controller: RC,
-                    onChanged: (value) {
-                      Review=value;
-                    },
-                    style: TextStyle(
-                      color: Colors.black,
+                  textAlign: TextAlign.center,
+                  controller: RC,
+                  onChanged: (value) {
+                    Review = value;
+                  },
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    prefixIcon: Icon(Icons.rate_review),
+                    fillColor: Colors.white,
+                    hintText: "Write Your Review",
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
                     ),
-                    decoration: InputDecoration(
-                      filled: true,
-                      prefixIcon: Icon(Icons.rate_review),
-                      fillColor: Colors.white,
-                      hintText: "Write Your Review",
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          borderSide: BorderSide.none),
-                    )),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        borderSide: BorderSide.none),
+                  ),
+                ),
               ),
             ),
           ),
@@ -407,6 +460,18 @@ class _ReviewPageState extends State<ReviewPage> {
                                       onPressed: () {
                                         setState(() {
                                           RC.clear();
+                                          (widget.name == 'Mahalaxmi Provision')
+                                              ? addMP()
+                                              : (widget.name ==
+                                                      'Parishram Electrics')
+                                                  ? addPE()
+                                                  : (widget.name ==
+                                                          'Samsung Showroom')
+                                                      ? addSS()
+                                                      : (widget.name ==
+                                                              'Apex Dry Fruit Stores')
+                                                          ? addAD()
+                                                          : addKS();
                                         });
                                       },
                                     ),

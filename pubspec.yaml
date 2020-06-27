@@ -1,5 +1,5 @@
 name: home_stop
-description: gandu sale
+description:
 
 version: 1.0.0+1
 
@@ -23,8 +23,13 @@ dependencies:
   flutter_svg:
   email_validator: ^1.0.4
   flutter_auth_buttons: ^0.6.0
-  credit_card: ^0.1.8
   google_maps_flutter:
+  geolocator: ^5.3.2+2
+  animated_text_kit: ^2.0.0
+  url_launcher: ^5.4.10
+  provider: ^4.0.4
+  razorpay_flutter: ^1.2.1
+  fluttertoast: ^4.0.1
 
 
 dev_dependencies:
@@ -46,6 +51,32 @@ flutter:
     - images/Addidas_shoes.jpeg
     - images/apple_inc.jpg
     - images/HP_laptop.webp
+    - images/SonyTV.jpg
+    - images/LGAC.jpeg
+    - images/SonyFridge.jpeg
+    - images/1+earphone.jpg
+    - images/SAMAC.webp
+    - images/SAMM31.webp
+    - images/SAMS20.webp
+    - images/SAMLAP.jpg
+    - images/SAMMICRO.jpeg
+    - images/SAMTV.jpeg
+    - images/SAMWASH.jpeg
+    - images/Peanuts.jpg
+    - images/ALMOND.jpg
+    - images/Cashews.jpg
+    - images/CornNuts.jpg
+    - images/Hazelnuts.jpg
+    - images/Walnuts.jpg
+    - images/Glue.jpg
+    - images/GlueGun.jpg
+    - images/PILOTV7.jpg
+    - images/Scissors.jpg
+    - images/Tapes.jpg
+    - images/Whitner.jpg
+    - images/ClassmateNotebooks.jpg
+    - images/CoverPage.png
+    - images/forward.png
   fonts:
     - family: RobotoCondensed
       fonts:

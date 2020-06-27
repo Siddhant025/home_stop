@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:home_stop/Screens/input_page.dart';
 import 'package:home_stop/Screens/shopping_store.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:geolocator/geolocator.dart';
 
 class LogIn extends StatefulWidget {
   @override
@@ -22,6 +24,8 @@ class _LogInState extends State<LogIn> {
   String username;
   String pwd;
   bool _spinner = false;
+  double Latitude;
+  double Longitude;
   final _auth = FirebaseAuth.instance;
   final googleSignIn = new GoogleSignIn();
 
@@ -39,6 +43,22 @@ class _LogInState extends State<LogIn> {
     return user;
   }
 
+  void _getCurrentLocation() async {
+    final position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Latitude = position.latitude;
+    Longitude = position.longitude;
+    print(Latitude);
+    print(Longitude);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCurrentLocation();
+  }
+
   void SignOut() {
     googleSignIn.signOut();
     print('User Signed out');
@@ -48,11 +68,10 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          Align(
-            alignment: Alignment.topLeft,
-          ),
-        ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pushNamed(context, InputPage.id),
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: _spinner,
@@ -97,8 +116,8 @@ class _LogInState extends State<LogIn> {
                     autofocus: true,
                     decoration: InputDecoration(
                         filled: true,
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 20),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                         fillColor: Colors.white,
                         icon: Icon(
                           FontAwesomeIcons.user,
@@ -113,17 +132,19 @@ class _LogInState extends State<LogIn> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.blueAccent, width: 1),
+                              BorderSide(color: Colors.blueAccent, width: 1),
                           borderRadius: BorderRadius.all(Radius.circular(30)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.blueAccent, width: 1),
+                            borderSide:
+                                BorderSide(color: Colors.blueAccent, width: 1),
                             borderRadius:
-                            BorderRadius.all(Radius.circular(30)))),
+                                BorderRadius.all(Radius.circular(30)))),
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: TextFormField(
@@ -236,6 +257,7 @@ class _LogInState extends State<LogIn> {
                                 builder: (context) => Shopping(
                                   email: email,
                                   name: username,
+                                  logout: false,
                                 ),
                               ));
                           showDialog(
@@ -261,7 +283,7 @@ class _LogInState extends State<LogIn> {
                           context: context,
                           type: AlertType.error,
                           title: "ALERT",
-                          desc: "Incorrect Email or Password ",
+                          desc: "Incorrect Email or Password",
                           buttons: [
                             DialogButton(
                               child: Text(
@@ -316,6 +338,8 @@ class _LogInState extends State<LogIn> {
                                   builder: (context) => Shopping(
                                         email: user.email,
                                         name: user.displayName,
+                                        logout: true,
+                                        Sign_out_google: SignOut,
                                       )));
                           showDialog(
                               context: context,
@@ -343,29 +367,6 @@ class _LogInState extends State<LogIn> {
                 ),
                 SizedBox(
                   height: 30,
-                ),
-                RaisedButton(
-                  child: Text('LogOut Google Account'),
-                  onPressed: () {
-                    SignOut();
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("Alert"),
-                            content: Text("Google Account Logged out"),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text("Close"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              )
-                            ],
-                          );
-                        });
-                  },
-                  color: Colors.redAccent,
                 ),
               ],
             ),

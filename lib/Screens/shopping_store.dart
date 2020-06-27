@@ -2,19 +2,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:home_stop/Screens/input_page.dart';
 import 'package:home_stop/Screens/shop_page.dart';
 import 'package:home_stop/coffee_model.dart';
 import 'package:home_stop/Screens/chatscreen.dart';
-import 'package:home_stop/Screens/log_in.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 
+// ignore: must_be_immutable
 class Shopping extends StatefulWidget {
   static const String id = 'Shopping';
-  Shopping({Key key,this.email,this.name}) : super(key: key);
+  Shopping({
+    Key key,
+    this.email,
+    this.name,
+    this.logout,
+    this.Sign_out_google,
+  }) : super(key: key);
   final String email;
   final String name;
+  final bool logout;
+  final Function Sign_out_google;
   //include this
   @override
   _ShoppingState createState() => _ShoppingState();
@@ -25,21 +34,28 @@ class _ShoppingState extends State<Shopping>
   @override
   PageController _pageController;
   Completer<GoogleMapController> _controller = Completer();
-  double zoomVal=5.0;
+  double zoomVal = 5.0;
   int prevPage;
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
+
 
   @override
   void initState() {
     super.initState();
     getCurrentUser();
+
     _pageController = PageController(initialPage: 1, viewportFraction: 0.8);
   }
-  Future<void> _gotoLocation(double lat,double long) async {
+
+  Future<void> _gotoLocation(double lat, double long) async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(lat, long), zoom: 15,tilt: 50.0,
-      bearing: 45.0,)));
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: LatLng(lat, long),
+      zoom: 15,
+      tilt: 50.0,
+      bearing: 45.0,
+    )));
   }
 
   _coffeeShopList(index) {
@@ -60,17 +76,31 @@ class _ShoppingState extends State<Shopping>
         );
       },
       child: InkWell(
-        onTap: (){},
+        onTap: () {},
         child: Stack(
           children: [
             Center(
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onLongPress: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ShopPage(thumbnail: coffeeShops[index].thumbNail,)));
+                onLongPress: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ShopPage(
+                        thumbnail: coffeeShops[index].thumbNail,
+                        name: coffeeShops[index].shopName,
+                        Phoneno: coffeeShops[index].Phoneno,
+                        index: index,
+                        email: widget.email,
+                        dashboardname: widget.name,
+                        logout: widget.logout,
+                      ),
+                    ),
+                  );
                 },
-                onTap: (){
-                  _gotoLocation(coffeeShops[index].lat,coffeeShops[index].long);
+                onTap: () {
+                  _gotoLocation(
+                      coffeeShops[index].lat, coffeeShops[index].long);
                 },
                 child: Container(
                     margin: EdgeInsets.symmetric(
@@ -94,16 +124,18 @@ class _ShoppingState extends State<Shopping>
                             color: Colors.white),
                         child: Row(children: [
                           Container(
-                              height: 90.0,
-                              width: 85.0,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10.0),
-                                      topLeft: Radius.circular(10.0)),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          coffeeShops[index].thumbNail),
-                                      fit: BoxFit.cover))),
+                            height: 90.0,
+                            width: 85.0,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10.0),
+                                  topLeft: Radius.circular(10.0)),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      coffeeShops[index].thumbNail),
+                                  fit: BoxFit.cover),
+                            ),
+                          ),
                           SizedBox(width: 5.0),
                           Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -142,24 +174,24 @@ class _ShoppingState extends State<Shopping>
       print(e);
     }
   }
-  Widget _zoomminusfunction() {
 
+  Widget _zoomminusfunction() {
     return Align(
       alignment: Alignment.topRight,
       child: IconButton(
-          icon: Icon(FontAwesomeIcons.searchMinus,color:Color(0xff6200ee)),
+          icon: Icon(FontAwesomeIcons.searchMinus, color: Color(0xff6200ee)),
           onPressed: () {
             zoomVal--;
-            _minus( zoomVal);
+            _minus(zoomVal);
           }),
     );
   }
-  Widget _zoomplusfunction() {
 
+  Widget _zoomplusfunction() {
     return Align(
       alignment: Alignment.topLeft,
       child: IconButton(
-          icon: Icon(FontAwesomeIcons.searchPlus,color:Color(0xff6200ee)),
+          icon: Icon(FontAwesomeIcons.searchPlus, color: Color(0xff6200ee)),
           onPressed: () {
             zoomVal++;
             _plus(zoomVal);
@@ -169,11 +201,14 @@ class _ShoppingState extends State<Shopping>
 
   Future<void> _minus(double zoomVal) async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(22.3072, 73.1812), zoom: zoomVal)));
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(22.3072, 73.1812), zoom: zoomVal)));
   }
+
   Future<void> _plus(double zoomVal) async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: LatLng(22.3072, 73.1812), zoom: zoomVal)));
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: LatLng(22.3072, 73.1812), zoom: zoomVal)));
   }
 
   Widget build(BuildContext context) {
@@ -265,6 +300,30 @@ class _ShoppingState extends State<Shopping>
               thickness: 4,
               color: Colors.redAccent,
             ),
+            widget.logout
+                ? ListTile(
+              title: Text('Log Out'),
+              onTap: () {
+                widget.Sign_out_google();
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Alert"),
+                      content: Text("Google Account Logged out"),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("Close"),
+                          onPressed: () {
+                            Navigator.pushNamed(context, InputPage.id);
+                          },
+                        )
+                      ],
+                    );
+                  },
+                );
+              },
+            ):
             ListTile(
               title: Text('Log Out'),
               trailing: Icon(FontAwesomeIcons.signOutAlt),
@@ -281,7 +340,7 @@ class _ShoppingState extends State<Shopping>
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, LogIn.id);
+                        Navigator.pushNamed(context, InputPage.id);
                         _auth.signOut();
                       },
                       width: 120,
@@ -356,64 +415,67 @@ class _ShoppingState extends State<Shopping>
       ),
     );
   }
+
   Widget _buildGoogleMap(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: GoogleMap(
         mapType: MapType.normal,
-        initialCameraPosition:  CameraPosition(target: LatLng(22.3072, 73.1812), zoom: 12),
+        initialCameraPosition:
+            CameraPosition(target: LatLng(22.3072, 73.1812), zoom: 12),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
         markers: {
-          stumptownMarker,andrewsMarker,thirdrailMarker,newyork1Marker,newyork2Marker,
+          MahalaxmiMarker,
+          ParishramMarker,
+          SamsungMarker,
+          ApexMarker,
+          KrishnaMarker,
         },
       ),
     );
   }
+
+  Marker MahalaxmiMarker = Marker(
+    markerId: MarkerId('Mahalaxmi'),
+    position: LatLng(22.309990, 73.181610),
+    infoWindow: InfoWindow(title: 'Mahalaxmi Provision Store'),
+    icon: BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueViolet,
+    ),
+  );
+  Marker ParishramMarker = Marker(
+    markerId: MarkerId('Parishram'),
+    position: LatLng(22.302160, 73.175160),
+    infoWindow: InfoWindow(title: 'Parishram Electrics'),
+    icon: BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueViolet,
+    ),
+  );
+  Marker SamsungMarker = Marker(
+    markerId: MarkerId('Samsung Showroom'),
+    position: LatLng(22.303270, 73.165670),
+    infoWindow: InfoWindow(title: 'Samsung Showroom'),
+    icon: BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueViolet,
+    ),
+  );
+  Marker ApexMarker = Marker(
+    markerId: MarkerId('Apex Dry Fruit Stores'),
+    position: LatLng(22.3006, 73.1692),
+    infoWindow: InfoWindow(title: 'Apex Dry Fruit Stores'),
+    icon: BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueViolet,
+    ),
+  );
+  Marker KrishnaMarker = Marker(
+    markerId: MarkerId('Krishna Stationery'),
+    position: LatLng(22.3073, 73.1811),
+    infoWindow: InfoWindow(title: 'Krishna Stationery'),
+    icon: BitmapDescriptor.defaultMarkerWithHue(
+      BitmapDescriptor.hueViolet,
+    ),
+  );
 }
-Marker stumptownMarker = Marker(
-  markerId: MarkerId('stumptown'),
-  position: LatLng(22.292511, 73.164375),
-  infoWindow: InfoWindow(title: 'Stumptown Coffee Roasters'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);
-
-Marker andrewsMarker = Marker(
-  markerId: MarkerId('Andrews'),
-  position: LatLng(22.270041, 73.149727),
-  infoWindow: InfoWindow(title: 'Andrews Coffee Shop'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);
-Marker thirdrailMarker = Marker(
-  markerId: MarkerId('thirdrail'),
-  position: LatLng(22.291061, 73.243126),
-  infoWindow: InfoWindow(title: 'Third Rail Coffee'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);
-
-//New York Marker
-
-Marker newyork1Marker = Marker(
-  markerId: MarkerId('newyork1'),
-  position: LatLng(22.323494, 73.187221),
-  infoWindow: InfoWindow(title: 'Hi-Collar'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);
-Marker newyork2Marker = Marker(
-  markerId: MarkerId('newyork2'),
-  position: LatLng(22.3073, 73.1811),
-  infoWindow: InfoWindow(title: 'Everyman Espresso'),
-  icon: BitmapDescriptor.defaultMarkerWithHue(
-    BitmapDescriptor.hueViolet,
-  ),
-);

@@ -15,7 +15,6 @@ class _TaskViewState extends State<TaskView> {
       return ListView.builder(
         itemBuilder: (context, index) {
           return TaskTile(
-
             taskTitle: taskdata.task[index].name,
             isChecked: taskdata.task[index].isDone,
             checkCallBox: (bool isCheckedState) {

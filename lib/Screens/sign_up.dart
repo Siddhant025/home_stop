@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:home_stop/Screens/input_page.dart';
 import 'package:home_stop/Screens/shopping_store.dart';
 import 'dart:core';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:geolocator/geolocator.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -17,24 +21,63 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   String email;
+  double Latitude;
+  double Longitude;
   String pwd;
   int phoneno;
   String username;
   bool _spinner = false;
   final _auth = FirebaseAuth.instance;
   final _firestore = Firestore.instance;
+  final googleSignIn = new GoogleSignIn();
   final emailcontroller = TextEditingController();
   final usernamecontroller = TextEditingController();
   final pwdcontroller = TextEditingController();
   final phonenocontroller = TextEditingController();
+
+  void _getCurrentLocation() async {
+    final position = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Latitude = position.latitude;
+    Longitude = position.longitude;
+    print(position);
+  }
+
+  Future<FirebaseUser> _SignIn() async {
+    GoogleSignInAccount googleUser = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken,
+    );
+    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    FirebaseUser user = authResult.user;
+
+    print(" signed in " + user.displayName);
+    return user;
+  }
+
+  void SignOut() {
+    googleSignIn.signOut();
+    print('User Signed out');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCurrentLocation();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          Align(
-            alignment: Alignment.topLeft,
-          ),
-        ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamed(context, InputPage.id);
+          },
+        ),
       ),
       body: ModalProgressHUD(
         inAsyncCall: _spinner,
@@ -272,38 +315,6 @@ class _SignUpState extends State<SignUp> {
                             phoneno == null ||
                             username == null) {
                           showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return CupertinoAlertDialog(
-                                  insetAnimationCurve: Curves.decelerate,
-                                  title: Text("Error"),
-                                  content: Text("All Field Are Not Filled"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Close"),
-                                      onPressed: () {
-                                        usernamecontroller.clear();
-                                        pwdcontroller.clear();
-                                        phonenocontroller.clear();
-                                        emailcontroller.clear();
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                );
-                              });
-                        } else if (newUser != null) {
-                          _spinner = false;
-                          _firestore.collection('users').add({
-                            'email': email,
-                            'password': pwd,
-                            'phoneno': phoneno,
-                            'username': username,
-                          });
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Shopping(email: email,name: username,)));
-                        }
-                      } catch (e) {
-                        showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return CupertinoAlertDialog(
@@ -320,10 +331,53 @@ class _SignUpState extends State<SignUp> {
                                       emailcontroller.clear();
                                       Navigator.pop(context);
                                     },
-                                  )
+                                  ),
                                 ],
                               );
-                            });
+                            },
+                          );
+                        } else if (newUser != null) {
+                          _spinner = false;
+                          _firestore.collection('users').add({
+                            'email': email,
+                            'password': pwd,
+                            'phoneno': phoneno,
+                            'username': username,
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Shopping(
+                                email: email,
+                                name: username,
+                                logout: false,
+                              ),
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              insetAnimationCurve: Curves.decelerate,
+                              title: Text("Error"),
+                              content: Text("All Field Are Not Filled"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: Text("Close"),
+                                  onPressed: () {
+                                    usernamecontroller.clear();
+                                    pwdcontroller.clear();
+                                    phonenocontroller.clear();
+                                    emailcontroller.clear();
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                         print(e.toString());
                       }
                     },
@@ -339,7 +393,54 @@ class _SignUpState extends State<SignUp> {
                           fontStyle: FontStyle.italic,
                           textBaseline: TextBaseline.alphabetic),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: GoogleSignInButton(
+                      darkMode: true,
+                      onPressed: () {
+                        try {
+                          _SignIn().then((FirebaseUser user) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Shopping(
+                                  email: user.email,
+                                  name: user.displayName,
+                                  logout: true,
+                                  Sign_out_google: SignOut,
+                                ),
+                              ),
+                            );
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return CupertinoAlertDialog(
+                                    title: Text("Alert"),
+                                    content: Text(
+                                        "Logged in as ${user.displayName}"),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text("Close"),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      )
+                                    ],
+                                  );
+                                });
+                          });
+                        } catch (e) {
+                          print(e.toString());
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                 ],
               ),
             ),

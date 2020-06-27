@@ -1,151 +1,268 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:home_stop/constants.dart';
-import 'sign_up.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'log_in.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'sign_up.dart';
 
 class InputPage extends StatefulWidget {
-  @override
   static const String id = 'inputpage';
+
+  @override
   _InputPageState createState() => _InputPageState();
 }
-
 class _InputPageState extends State<InputPage> {
+
   @override
-  int _selectedindex = 0;
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0A0E21),
-      body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.all(20),
-          child: SafeArea(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(right: 70),
-                  child: Text(
-                    'Welcome',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: White,
-                      fontWeight: FontWeight.bold,
+      resizeToAvoidBottomPadding: false,
+      backgroundColor: Colors.white,
+      body: Column(
+        children: <Widget>[
+          new Stack(
+            alignment: Alignment.bottomCenter,
+            children: <Widget>[
+              Image.asset(
+                'images/CoverPage.png',
+                width: MediaQuery.of(context).size.width / 1.5,
+              ),
+              WavyHeader(),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 17,
+                  ),
+                  TypewriterAnimatedTextKit(
+                    speed: Duration(seconds: 1),
+                    text: ["WELCOME"],
+                    textStyle: TextStyle(
+                      color: Colors.redAccent,
                       fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'fonts/RobotoCondensed-BoldItalic.ttf',
+                      fontStyle: FontStyle.italic,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 50),
-                  child: Text(
-                    'hjdsgfjhdshjdsgdsghdsgdskcdschdsghdshcdgshjc',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: White),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 50),
-                  child: Text(
-                    'Please Proceed to login or sign up or skip to continue',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: White),
-                  ),
-                ),
-                SizedBox(
-                  height: 150,
-                ),
-                RaisedButton(
-                  padding: EdgeInsets.all(10),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LogIn();
-                        },
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return LogIn();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 150,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.blueAccent),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            "LogIN",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(5.0),
-                      side: BorderSide(color: Colors.red)),
-                  highlightElevation: 30,
-                  highlightColor: Colors.black,
-                  child: Text(
-                    'Log In',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        fontStyle: FontStyle.italic,
-                        textBaseline: TextBaseline.alphabetic),
+                    ),
                   ),
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                RaisedButton(
-                  padding: EdgeInsets.all(10),
-                  highlightColor: Colors.black,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return SignUp();
-                        },
+                  SizedBox(height: 10,),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SignUp();
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 150,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.orangeAccent),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: Text(
+                            "SignUp",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
-                    );
-                  },
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(5.0),
-                    side: BorderSide(color: Colors.red),
+                    ),
                   ),
-                  child: Text(
-                    'Sign Up',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        fontStyle: FontStyle.italic,
-                        textBaseline: TextBaseline.alphabetic),
-                  ),
-                  color: Colors.white,
-                ),
-                SizedBox(
-                  height: 160,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: SnakeNavigationBar(
-        backgroundColor: Colors.yellowAccent,
-        selectedIconColor: Colors.red,
-        style: SnakeBarStyle.floating,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.amazon), title: Text('Amazon')),
-          BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.music), title: Text('Music'))
+          Stack(
+            alignment: Alignment.bottomLeft,
+            children: <Widget>[
+              WavyFooter(),
+              CirclePink(),
+              CircleYellow(),
+            ],
+          )
         ],
-        currentIndex: _selectedindex,
-        onPositionChanged: (index) => setState(() => _selectedindex = index),
-        elevation: 30,
       ),
     );
   }
+}
+
+const List<Color> orangeGradients = [
+  Color(0xFFFF9844),
+  Color(0xFFFE8853),
+  Color(0xFFFD7267),
+];
+
+const List<Color> aquaGradients = [
+  Color(0xFF5AEAF1),
+  Color(0xFF8EF7DA),
+];
+
+class WavyHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: TopWaveClipper(),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: orangeGradients,
+              begin: Alignment.topLeft,
+              end: Alignment.center),
+        ),
+        height: MediaQuery.of(context).size.height / 2.5,
+      ),
+    );
+  }
+}
+
+class WavyFooter extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ClipPath(
+      clipper: FooterWaveClipper(),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: aquaGradients,
+              begin: Alignment.center,
+              end: Alignment.bottomRight),
+        ),
+        height: MediaQuery.of(context).size.height / 3,
+      ),
+    );
+  }
+}
+
+class CirclePink extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Transform.translate(
+      offset: Offset(-70.0, 90.0),
+      child: Material(
+        color: Colors.pink,
+        child: Padding(padding: EdgeInsets.all(120)),
+        shape: CircleBorder(side: BorderSide(color: Colors.white, width: 15.0)),
+      ),
+    );
+  }
+}
+
+class CircleYellow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Transform.translate(
+      offset: Offset(0.0, 210.0),
+      child: Material(
+        color: Colors.yellow,
+        child: Padding(padding: EdgeInsets.all(140)),
+        shape: CircleBorder(side: BorderSide(color: Colors.white, width: 15.0)),
+      ),
+    );
+  }
+}
+
+class TopWaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    // This is where we decide what part of our image is going to be visible.
+    var path = Path();
+    path.lineTo(0.0, size.height);
+
+    var firstControlPoint = new Offset(size.width / 7, size.height - 30);
+    var firstEndPoint = new Offset(size.width / 6, size.height / 1.5);
+
+    path.quadraticBezierTo(firstControlPoint.dx, firstControlPoint.dy,
+        firstEndPoint.dx, firstEndPoint.dy);
+
+    var secondControlPoint = Offset(size.width / 5, size.height / 4);
+    var secondEndPoint = Offset(size.width / 1.5, size.height / 5);
+    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
+        secondEndPoint.dx, secondEndPoint.dy);
+
+    var thirdControlPoint =
+        Offset(size.width - (size.width / 9), size.height / 6);
+    var thirdEndPoint = Offset(size.width, 0.0);
+    path.quadraticBezierTo(thirdControlPoint.dx, thirdControlPoint.dy,
+        thirdEndPoint.dx, thirdEndPoint.dy);
+
+    ///move from bottom right to top
+    path.lineTo(size.width, 0.0);
+
+    ///finally close the path by reaching start point from top right corner
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+class FooterWaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.moveTo(size.width, 0.0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0.0, size.height);
+    path.lineTo(0.0, size.height - 60);
+    var secondControlPoint = Offset(size.width - (size.width / 6), size.height);
+    var secondEndPoint = Offset(size.width, 0.0);
+    path.quadraticBezierTo(secondControlPoint.dx, secondControlPoint.dy,
+        secondEndPoint.dx, secondEndPoint.dy);
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+class YellowCircleClipper extends CustomClipper<Rect> {
+  @override
+  Rect getClip(Size size) {
+    return null;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
 }
