@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+<<<<<<< HEAD
 import 'package:home_stop/Screens/description.dart';
+=======
+import 'package:home_stop/Screens/shop_page.dart';
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
 import 'package:home_stop/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,10 +13,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ReviewPage extends StatefulWidget {
   @override
   static const String id = 'ReviewPage';
+<<<<<<< HEAD
   ReviewPage({this.name, this.thumbnail, this.Phoneno});
   final String name;
   final String thumbnail;
   final int Phoneno;
+=======
+  ReviewPage({this.name, this.thumbnail});
+  final String name;
+  final String thumbnail;
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   _ReviewPageState createState() => _ReviewPageState();
 }
 
@@ -31,6 +41,7 @@ class _ReviewPageState extends State<ReviewPage> {
       myFeedbackColor4 = Colors.grey,
       myFeedbackColor5 = Colors.grey;
   String Review;
+<<<<<<< HEAD
 
   void addMP() {
     _firestore.collection('reviewMP').add({
@@ -67,6 +78,8 @@ class _ReviewPageState extends State<ReviewPage> {
     });
   }
 
+=======
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   final RC = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -309,6 +322,7 @@ class _ReviewPageState extends State<ReviewPage> {
               shadowColor: Colors.black54,
               child: Card(
                 child: TextField(
+<<<<<<< HEAD
                   textAlign: TextAlign.center,
                   controller: RC,
                   onChanged: (value) {
@@ -324,6 +338,15 @@ class _ReviewPageState extends State<ReviewPage> {
                     hintText: "Write Your Review",
                     hintStyle: TextStyle(
                       color: Colors.grey,
+=======
+                    textAlign: TextAlign.center,
+                    controller: RC,
+                    onChanged: (value) {
+                      Review = value;
+                    },
+                    style: TextStyle(
+                      color: Colors.black,
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                     ),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(

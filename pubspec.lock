@@ -106,6 +106,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+<<<<<<< HEAD
   eventify:
     dependency: transitive
     description:
@@ -113,6 +114,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
+=======
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   firebase:
     dependency: transitive
     description:

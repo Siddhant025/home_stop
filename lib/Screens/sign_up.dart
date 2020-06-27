@@ -43,6 +43,7 @@ class _SignUpState extends State<SignUp> {
     print(position);
   }
 
+<<<<<<< HEAD
   Future<FirebaseUser> _SignIn() async {
     GoogleSignInAccount googleUser = await googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -62,6 +63,8 @@ class _SignUpState extends State<SignUp> {
     print('User Signed out');
   }
 
+=======
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   @override
   void initState() {
     // TODO: implement initState
@@ -315,6 +318,51 @@ class _SignUpState extends State<SignUp> {
                             phoneno == null ||
                             username == null) {
                           showDialog(
+<<<<<<< HEAD
+=======
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CupertinoAlertDialog(
+                                  insetAnimationCurve: Curves.decelerate,
+                                  title: Text("Error"),
+                                  content: Text("All Field Are Not Filled"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      child: Text("Close"),
+                                      onPressed: () {
+                                        usernamecontroller.clear();
+                                        pwdcontroller.clear();
+                                        phonenocontroller.clear();
+                                        emailcontroller.clear();
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
+                        } else if (newUser != null) {
+                          _spinner = false;
+                          _firestore.collection('users').add({
+                            'email': email,
+                            'password': pwd,
+                            'phoneno': phoneno,
+                            'username': username,
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Shopping(
+                                email: email,
+                                name: username,
+                                Latitude: Latitude,
+                                Longitude: Longitude,
+                              ),
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        showDialog(
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                             context: context,
                             builder: (BuildContext context) {
                               return CupertinoAlertDialog(
@@ -394,6 +442,7 @@ class _SignUpState extends State<SignUp> {
                           textBaseline: TextBaseline.alphabetic),
                     ),
                   ),
+<<<<<<< HEAD
                   SizedBox(
                     height: 20,
                   ),
@@ -441,6 +490,8 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(
                     height: 30,
                   ),
+=======
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                 ],
               ),
             ),

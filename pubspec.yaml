@@ -26,10 +26,13 @@ dependencies:
   google_maps_flutter:
   geolocator: ^5.3.2+2
   animated_text_kit: ^2.0.0
+<<<<<<< HEAD
   url_launcher: ^5.4.10
   provider: ^4.0.4
   razorpay_flutter: ^1.2.1
   fluttertoast: ^4.0.1
+=======
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
 
 
 dev_dependencies:
@@ -75,8 +78,16 @@ flutter:
     - images/Tapes.jpg
     - images/Whitner.jpg
     - images/ClassmateNotebooks.jpg
+<<<<<<< HEAD
     - images/CoverPage.png
     - images/forward.png
+=======
+<<<<<<< HEAD
+    - images/CoverPage.png
+    - images/forward.png
+=======
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   fonts:
     - family: RobotoCondensed
       fonts:

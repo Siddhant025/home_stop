@@ -257,7 +257,12 @@ class _LogInState extends State<LogIn> {
                                 builder: (context) => Shopping(
                                   email: email,
                                   name: username,
+<<<<<<< HEAD
                                   logout: false,
+=======
+                                  Latitude: Latitude,
+                                  Longitude: Longitude,
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                                 ),
                               ));
                           showDialog(
@@ -338,8 +343,13 @@ class _LogInState extends State<LogIn> {
                                   builder: (context) => Shopping(
                                         email: user.email,
                                         name: user.displayName,
+<<<<<<< HEAD
                                         logout: true,
                                         Sign_out_google: SignOut,
+=======
+                                        Latitude: Latitude,
+                                        Longitude: Longitude,
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                                       )));
                           showDialog(
                               context: context,

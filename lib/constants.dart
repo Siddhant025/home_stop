@@ -298,6 +298,7 @@ class item {
         selected: 0),
   ];
 
+<<<<<<< HEAD
 }
 class StoreList{
   List<List<itemCard>> Store_List=[
@@ -323,4 +324,16 @@ class SelectedList extends ChangeNotifier{
     selecteditem.add(I);
     notifyListeners();
   }
+=======
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
 }
+class StoreList{
+  List<List<itemCard>> Store_List=[
+    item().item_card1,
+    item().item_card2,
+    item().item_card3,
+    item().item_card4,
+    item().item_card5,
+  ];
+}
+

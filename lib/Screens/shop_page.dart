@@ -13,6 +13,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 // ignore: must_be_immutable
 class ShopPage extends StatefulWidget {
   @override
+<<<<<<< HEAD
   ShopPage({
     Key key,
     this.thumbnail,
@@ -30,13 +31,31 @@ class ShopPage extends StatefulWidget {
   final String dashboardname;
   final String email;
   final bool logout;
+=======
+<<<<<<< HEAD
+  ShopPage({Key key, this.thumbnail, this.index, this.name}) : super(key: key);
+=======
+  ShopPage({Key key,this.thumbnail,this.index,this.name}) : super(key: key);
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+  final String thumbnail;
+  final int index;
+  final String name;
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   static const String id = 'ShopPage';
   _ShopPageState createState() => _ShopPageState();
 }
 
 class _ShopPageState extends State<ShopPage> {
+<<<<<<< HEAD
   StoreList S = new StoreList();
   SelectedList L = new SelectedList();
+=======
+<<<<<<< HEAD
+  StoreList S = new StoreList();
+=======
+  StoreList S=new StoreList();
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   ScrollController _scrollBottomBarController =
       new ScrollController(); // set controller on scrolling
   bool isScrollingDown = false;
@@ -281,6 +300,7 @@ class _ShopPageState extends State<ShopPage> {
                         onTap: () {
                           setState(() {
                             Navigator.push(
+<<<<<<< HEAD
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ReviewPage(
@@ -289,6 +309,15 @@ class _ShopPageState extends State<ShopPage> {
                                 ),
                               ),
                             );
+=======
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ReviewPage(
+                                    name: widget.name,
+                                    thumbnail: widget.thumbnail,
+                                  ),
+                                ));
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                           });
                         },
                         child: Text(
@@ -418,6 +447,10 @@ class _ShopPageState extends State<ShopPage> {
                                       onpress: () {
                                         setState(
                                           () {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                                             if (S
                                                     .Store_List[widget.index]
                                                         [index]
@@ -441,6 +474,7 @@ class _ShopPageState extends State<ShopPage> {
                                                           [index]
                                                       .available -
                                                   1;
+<<<<<<< HEAD
                                             } else if (S
                                                     .Store_List[widget.index]
                                                         [index]
@@ -455,6 +489,21 @@ class _ShopPageState extends State<ShopPage> {
                                               );
                                               Scaffold.of(context)
                                                   .showSnackBar(snackbar);
+=======
+=======
+                                            if (S.Store_List[widget.index][index].available >
+                                                0) {
+                                              _no_of_items = _no_of_items + 1;
+                                              _price = _price +
+                                                  S.Store_List[widget.index][index].price;
+                                              S.Store_List[widget.index][index].selected =
+                                                  S.Store_List[widget.index][index].selected +
+                                                      1;
+                                              S.Store_List[widget.index][index].available =
+                                                  S.Store_List[widget.index][index].available -
+                                                      1;
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                                             }
                                           },
                                         );
@@ -472,6 +521,10 @@ class _ShopPageState extends State<ShopPage> {
                                       onpress: () {
                                         setState(
                                           () {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                                             if (S
                                                         .Store_List[
                                                             widget.index][index]
@@ -481,6 +534,7 @@ class _ShopPageState extends State<ShopPage> {
                                                         .Store_List[
                                                             widget.index][index]
                                                         .selected >
+<<<<<<< HEAD
                                                     0) {
                                               _no_of_items--;
                                               _price = _price -
@@ -500,6 +554,42 @@ class _ShopPageState extends State<ShopPage> {
                                                           [index]
                                                       .available +
                                                   1;
+=======
+                                                    0) {
+                                              _no_of_items--;
+                                              _price = _price -
+                                                  S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .price;
+                                              S.Store_List[widget.index][index]
+                                                  .selected = S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .selected -
+                                                  1;
+                                              S.Store_List[widget.index][index]
+                                                  .available = S
+                                                      .Store_List[widget.index]
+                                                          [index]
+                                                      .available +
+                                                  1;
+=======
+                                            if (S.Store_List[widget.index][index].available >=
+                                                    0 &&
+                                                S.Store_List[widget.index][index].selected >
+                                                    0) {
+                                              _no_of_items--;
+                                              _price = _price -
+                                                  S.Store_List[widget.index][index].price;
+                                              S.Store_List[widget.index][index].selected =
+                                                  S.Store_List[widget.index][index].selected -
+                                                      1;
+                                              S.Store_List[widget.index][index].available =
+                                                  S.Store_List[widget.index][index].available +
+                                                      1;
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                                             }
                                           },
                                         );
@@ -583,6 +673,7 @@ class _ShopPageState extends State<ShopPage> {
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 10),
                               ),
+<<<<<<< HEAD
                               onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -596,6 +687,10 @@ class _ShopPageState extends State<ShopPage> {
                                             Phoneno: widget.Phoneno,
                                             logout: widget.logout,
                                           ))),
+=======
+                              onPressed: () =>
+                                  Navigator.pushNamed(context, PaymentPage.id),
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                               color: Color.fromRGBO(0, 179, 134, 1.0),
                             ),
                             DialogButton(

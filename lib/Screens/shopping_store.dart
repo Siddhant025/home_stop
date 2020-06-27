@@ -13,10 +13,15 @@ import 'dart:async';
 // ignore: must_be_immutable
 class Shopping extends StatefulWidget {
   static const String id = 'Shopping';
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   Shopping({
     Key key,
     this.email,
     this.name,
+<<<<<<< HEAD
     this.logout,
     this.Sign_out_google,
   }) : super(key: key);
@@ -24,6 +29,18 @@ class Shopping extends StatefulWidget {
   final String name;
   final bool logout;
   final Function Sign_out_google;
+=======
+    this.Latitude,
+    this.Longitude,
+  }) : super(key: key);
+=======
+  Shopping({Key key, this.email, this.name}) : super(key: key);
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+  final String email;
+  final String name;
+  double Latitude;
+  double Longitude;
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   //include this
   @override
   _ShoppingState createState() => _ShoppingState();
@@ -89,11 +106,15 @@ class _ShoppingState extends State<Shopping>
                       builder: (context) => ShopPage(
                         thumbnail: coffeeShops[index].thumbNail,
                         name: coffeeShops[index].shopName,
+<<<<<<< HEAD
                         Phoneno: coffeeShops[index].Phoneno,
                         index: index,
                         email: widget.email,
                         dashboardname: widget.name,
                         logout: widget.logout,
+=======
+                        index: index,
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
                       ),
                     ),
                   );
@@ -428,15 +449,33 @@ class _ShoppingState extends State<Shopping>
           _controller.complete(controller);
         },
         markers: {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
           MahalaxmiMarker,
           ParishramMarker,
           SamsungMarker,
           ApexMarker,
           KrishnaMarker,
+<<<<<<< HEAD
+=======
+=======
+          andrewsMarker,
+          stumptownMarker,
+          thirdrailMarker,
+          newyork1Marker,
+          newyork2Marker,
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
         },
       ),
     );
   }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
 
   Marker MahalaxmiMarker = Marker(
     markerId: MarkerId('Mahalaxmi'),
@@ -462,6 +501,10 @@ class _ShoppingState extends State<Shopping>
       BitmapDescriptor.hueViolet,
     ),
   );
+<<<<<<< HEAD
+=======
+
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
   Marker ApexMarker = Marker(
     markerId: MarkerId('Apex Dry Fruit Stores'),
     position: LatLng(22.3006, 73.1692),
@@ -479,3 +522,53 @@ class _ShoppingState extends State<Shopping>
     ),
   );
 }
+<<<<<<< HEAD
+=======
+=======
+}
+
+Marker andrewsMarker = Marker(
+  markerId: MarkerId('Mahalaxmi'),
+  position: LatLng(22.309990, 73.181610),
+  infoWindow: InfoWindow(title: 'Mahalaxmi Provision Store'),
+  icon: BitmapDescriptor.defaultMarkerWithHue(
+    BitmapDescriptor.hueViolet,
+  ),
+);
+Marker stumptownMarker = Marker(
+  markerId: MarkerId('Parishram'),
+  position: LatLng(22.302160, 73.175160),
+  infoWindow: InfoWindow(title: 'Parishram Electrics'),
+  icon: BitmapDescriptor.defaultMarkerWithHue(
+    BitmapDescriptor.hueViolet,
+  ),
+);
+Marker thirdrailMarker = Marker(
+  markerId: MarkerId('Samsung Showroom'),
+  position: LatLng(22.303270, 73.165670),
+  infoWindow: InfoWindow(title: 'Samsung Showroom'),
+  icon: BitmapDescriptor.defaultMarkerWithHue(
+    BitmapDescriptor.hueViolet,
+  ),
+);
+
+//New York Marker
+
+Marker newyork1Marker = Marker(
+  markerId: MarkerId('Apex Dry Fruit Stores'),
+  position: LatLng(22.3006, 73.1692),
+  infoWindow: InfoWindow(title: 'Apex Dry Fruit Stores'),
+  icon: BitmapDescriptor.defaultMarkerWithHue(
+    BitmapDescriptor.hueViolet,
+  ),
+);
+Marker newyork2Marker = Marker(
+  markerId: MarkerId('Krishna Stationery'),
+  position: LatLng(22.3073, 73.1811),
+  infoWindow: InfoWindow(title: 'Krishna Stationery'),
+  icon: BitmapDescriptor.defaultMarkerWithHue(
+    BitmapDescriptor.hueViolet,
+  ),
+);
+>>>>>>> 182c7f8b5ca1d9f8e0e5d186ff46dc49a0ba1e29
+>>>>>>> 756f0b8b10a869b6236f2c6dd1a1063d307e8ffa
