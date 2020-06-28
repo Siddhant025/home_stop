@@ -16,11 +16,33 @@ The Main Dashboard shows the nearby stores where all the stores on the map are b
 
 User can Add items to cart and then pay accordingly using the Cash on delivery or any online payment service
 
-### UI
+## UI
 
-The UI of our app are shown as:-
+The UI of our app are Contains:-
+- [Login/SignUP Screen](#Login/SignUp-Page)
+- [Dashboard Screen](#Dashboard)
+- [Shop Screen](#Shop-Page)
+- [Payment Screen](#Payment-Page)
 
+### Login/SignUp Page
+<img width="400" src=./assets/imgs/SplashScreen.jpeg>
+<img width="400" src=./assets/imgs/LogInPage.jpeg>
+<img width="400" src=./assets/imgs/SignUpPage.jpeg>
 
+### Dashboard
+<img width="400" src=./assets/imgs/Dashboard1.jpeg>
+<img width="400" src=./assets/imgs/Dashboard2.jpeg>
+<img width="400" src=./assets/imgs/NavBar.jpeg>
+
+### Shop Page
+<img width="400" src=./assets/imgs/ShopPage.jpeg>
+<img width="400" src=./assets/imgs/ShopPage2.jpeg>
+<img width="400" src=./assets/imgs/ReviewPage.jpeg>
+
+### Payment Page
+<img width="400" src=./assets/imgs/Cart.jpeg>
+<img width="400" src=./assets/imgs/PaymentAlert.jpeg>
+<img width="400" src=./assets/imgs/PaymentSuccess.jpeg>
 
 ## For Server Side
 
