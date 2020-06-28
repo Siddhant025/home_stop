@@ -34,7 +34,7 @@ prometheus-client==0.7.1
 prompt-toolkit==3.0.4
 ptyprocess==0.6.0
 pycrypto==2.6.1
-pycryptodome==3.4.3
+pycryptodome==3.6.6
 pycryptodomex==3.9.7
 Pygments==2.6.1
 pyrsistent==0.16.0
